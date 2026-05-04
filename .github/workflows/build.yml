@@ -20,6 +20,9 @@ jobs:
         working-directory: qmk_firmware
         run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf
 
+      - name: Install Python dependencies
+        run: pip3 install -r qmk_firmware/requirements.txt
+
       - name: Copy keymap
         run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/brandon
 
