@@ -18,7 +18,7 @@ jobs:
 
       - name: Init required submodules
         working-directory: qmk_firmware
-        run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf
+        run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf lib/lufa
 
       - name: Install system dependencies
         run: |
