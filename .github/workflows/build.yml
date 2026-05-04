@@ -1,46 +1,39 @@
-name: Build Ergodox Infinity
+name: Build ErgoDox Infinity
+
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkout QMK 0.14.0
-        uses: actions/checkout@v4
-        with:
-          repository: qmk/qmk_firmware
-          ref: '0.14.0'
-          submodules: false
-          path: qmk_firmware
-
-      - name: Init required submodules
-        working-directory: qmk_firmware
-        run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf lib/lufa
-
-      - name: Install system dependencies
+      - name: Set up environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            build-essential gcc git unzip wget \
-            gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi \
-            libhidapi-hidraw0 libusb-dev python3-pip dfu-util
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3 python3-pip
+
+      - name: Clone QMK at 0.14.0
+        run: git clone --depth 1 --branch 0.14.0 https://github.com/qmk/qmk_firmware.git
+
+      - name: Initialize QMK submodules
+        working-directory: qmk_firmware
+        run: git submodule update --init --recursive
 
       - name: Install Python dependencies
-        working-directory: qmk_firmware
-        run: python3 -m pip install --user -r requirements.txt
+        run: python3 -m pip install --user -r qmk_firmware/requirements.txt
 
       - name: Copy keymap
-        run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/brandon
+        run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/default
 
       - name: Build firmware
         working-directory: qmk_firmware
-        run: make ergodox_infinity:brandon
+        run: make ergodox_infinity:default
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ergodox-infinity-brandon
+          name: ergodox-infinity-firmware
           path: qmk_firmware/*.bin

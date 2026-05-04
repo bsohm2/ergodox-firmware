@@ -28,17 +28,17 @@ The workflow:
 - Clones QMK at tag `0.14.0`
 - Initializes submodules (ChibiOS, LUFA)
 - Installs ARM toolchain and dependencies
-- Copies `keymap/` to `keyboards/ergodox_infinity/keymaps/brandon/`
-- Compiles with `qmk compile -kb ergodox_infinity -km brandon`
-- Uploads `.bin` artifact as `ergodox-infinity-brandon`
+- Copies `keymap/` to `keyboards/ergodox_infinity/keymaps/default/`
+- Compiles with `qmk compile -kb ergodox_infinity -km default`
+- Uploads `.bin` artifact as `ergodox-infinity-firmware`
 
 ## Flashing the Firmware
 
 1. Download the artifact zip from the completed build
-2. Extract: `unzip ergodox-infinity-brandon.zip`
+2. Extract: `unzip ergodox-infinity-firmware.zip`
 3. Flash each half:
    ```bash
-   dfu-util -D ergodox_infinity_brandon.bin
+   dfu-util -D ergodox_infinity_default.bin
    ```
 
 Put each half into bootloader mode before flashing (hold the reset button on the PCB, or press `QK_BOOT` if already on QMK). Flash the left half first, then the right.
