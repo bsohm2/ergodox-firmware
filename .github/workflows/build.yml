@@ -20,14 +20,20 @@ jobs:
         working-directory: qmk_firmware
         run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential gcc git unzip wget \
+            gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi \
+            libhidapi-hidraw0 libusb-dev python3-pip
+
       - name: Install Python dependencies
-        run: pip3 install -r qmk_firmware/requirements.txt
+        working-directory: qmk_firmware
+        run: python3 -m pip install --user -r requirements.txt
 
       - name: Copy keymap
         run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/brandon
-
-      - name: Install ARM toolchain
-        run: sudo apt-get install -y gcc-arm-none-eabi
 
       - name: Build firmware
         working-directory: qmk_firmware
