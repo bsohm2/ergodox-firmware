@@ -7,6 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        keymap: [default, gaming]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -26,14 +30,14 @@ jobs:
         run: python3 -m pip install --user -r qmk_firmware/requirements.txt
 
       - name: Copy keymap
-        run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/default
+        run: cp -r keymap/${{ matrix.keymap }} qmk_firmware/keyboards/ergodox_infinity/keymaps/${{ matrix.keymap }}
 
       - name: Build firmware
         working-directory: qmk_firmware
-        run: make ergodox_infinity:default
+        run: make ergodox_infinity:${{ matrix.keymap }}
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ergodox-infinity-firmware
+          name: ergodox-infinity-${{ matrix.keymap }}
           path: qmk_firmware/*.bin
