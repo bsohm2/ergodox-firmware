@@ -1,4 +1,4 @@
-/* brandon keymap for Ergodox Infinity
+/* ErgoDox Infinity custom keymap layout
  * Generated from input_club_ergodox_infinity_layout_ergodox_2026-05-01.json
  */
 #include QMK_KEYBOARD_H
