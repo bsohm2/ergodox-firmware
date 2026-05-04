@@ -1,6 +1,13 @@
 # QMK CLI Quick Reference
 
 Essential QMK commands for building and flashing your ErgoDox Infinity firmware.
+n## About This Document
+
+This is a **quick reference guide** for essential QMK CLI commands used to build and flash your ErgoDox Infinity firmware.
+
+**Use this when:** Youre building firmware locally, flashing custom changes, or troubleshooting build errors.
+
+**Assumes:** You have QMK installed and your repo cloned to ~/.config/qmk/keyboards/input_club/ergodox_infinity/keymaps/default/
 
 ## Installation
 

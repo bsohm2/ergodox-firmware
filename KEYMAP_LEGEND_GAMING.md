@@ -1,6 +1,11 @@
 # Gaming Keymap Legend - Complete Layout
 
 ## Physical Layout (All 14 columns per row + thumb clusters)
+n## About This Document
+
+This is the **complete visual reference** for the gaming keymap showing all 4 layers in full detail for quick lookup during gameplay.
+
+**Use this when:** Youre gaming and need to quickly check where an ability/modifier key is located.
 
 ```
 Left Hand (7 wide)              Right Hand (7 wide)

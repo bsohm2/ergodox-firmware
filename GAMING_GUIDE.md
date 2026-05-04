@@ -3,6 +3,13 @@
 ## Overview
 
 The gaming keymap is optimized for competitive gaming with a focus on:
+n## About This Keymap
+
+This is a specialized gaming keymap designed for **fast-paced competitive gaming**. One of three keymaps (Default, Gaming, Diablo 4) that can be flashed separately.
+
+**Best for:** Gamers who want instant key response without tap-hold delays, optimized WASD placement, and quick access to ability modifiers.
+
+**Key principle:** Sacrifice the ergonomic tap-hold features of the default keymap in favor of raw input speed and predictability.
 - **Fast input response** (no tap-hold delays)
 - **WASD movement** focused on left hand
 - **Ability access** on right hand

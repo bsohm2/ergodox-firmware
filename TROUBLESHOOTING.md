@@ -1,6 +1,16 @@
 # ErgoDox Infinity Troubleshooting Guide
 
 ## Connection Issues
+n## About This Document
+
+This is your **first stop** when something goes wrong with your ErgoDox Infinity firmware or hardware.
+
+**Use this when:**
+- Right half wont connect
+- Firmware wont compile
+- Keys dont respond as expected
+- Getting USB errors
+- Keyboard randomly disconnects during use
 
 ### Right Half Disconnects After a Few Keypresses
 

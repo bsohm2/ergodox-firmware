@@ -3,6 +3,11 @@
 ## Overview
 
 This keymap is optimized specifically for Diablo 4 gameplay based on Blizzard's control scheme and community best practices. It leverages the ErgoDox's ergonomic design to create a comfortable farming/dungeon running setup.
+n## About This Keymap
+
+This is a specialized gaming keymap designed specifically for **Diablo 4** farming and dungeon running. One of three keymaps (Default, Gaming, Diablo 4) that can be flashed separately.
+
+**Best for:** Diablo 4 players who want optimized key placement for skills, potions, and inventory management without compromising comfort during extended gaming sessions.
 
 **Key Features:**
 - 6 Skill Slots mapped to primary position (Q, W, E, R, T, D)

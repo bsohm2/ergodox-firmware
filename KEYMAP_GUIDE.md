@@ -1,5 +1,33 @@
 # ErgoDox Infinity Keymap Guide
 
+## About This Keymap
+n## About This Keymap
+
+This is the **default QWERTY keymap** â€” the primary layout for everyday typing and general computer use. It features ergonomic tap-hold modifiers, multiple layers for symbols/numbers/navigation, and OLED display support.
+
+**Best for:** Typing, coding, general computer work where ergonomics and layer access are important.
+
+**5 Layers:**
+1. **Base:** QWERTY with home-row modifiers
+2. **Symbols:** Punctuation and special characters
+3. **Navigation:** Arrow keys, Page Up/Down, Home/End
+4. **Numbers:** Number pad and math operators
+5. **Function:** F1-F24 and multimedia keys
+
+This is the **default QWERTY keymap** — the primary layout for everyday typing and general computer use. It features ergonomic tap-hold modifiers, multiple layers for symbols/numbers/navigation, and OLED display support.
+
+**Best for:** Typing, coding, general computer work where ergonomics and layer access are important.
+
+**5 Layers:**
+1. **Base:** QWERTY with home-row modifiers (Ctrl/Shift/Alt/Gui)
+2. **Symbols:** Punctuation and special characters
+3. **Navigation:** Arrow keys, Page Up/Down, Home/End
+4. **Numbers:** Number pad and math operators
+5. **Function:** F1-F24 and multimedia keys
+
+**Related:** See [KEYMAP_LEGEND.md](KEYMAP_LEGEND.md) for complete visual layout, or [GAMING_GUIDE.md](GAMING_GUIDE.md) / [DIABLO4_GUIDE.md](DIABLO4_GUIDE.md) for gaming-optimized keymaps.
+
+
 ## Layers
 
 ### Layer 0: QWERTY (Base Layer)

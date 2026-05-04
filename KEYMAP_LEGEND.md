@@ -1,6 +1,25 @@
 # ErgoDox Infinity Complete Keymap Legend
 
 ## Physical Keyboard Layout
+n## About This Document
+
+This is the **complete visual reference** for the default QWERTY keymap. It shows all 5 layers in full detail so you can quickly find any key without hunting through documentation.
+
+**Use this when:** You need to quickly locate a key or understand the complete layout at a glance.
+
+**Legend:**
+- `[KEY]` = Tap for this key
+- `(KEY)` = Hold for modifier / layer toggle
+- `KEY / MODS` = Tap for KEY, hold for MODS
+
+**5 Layers included:**
+1. Layer 0 — QWERTY Base
+2. Layer 1 — Symbols
+3. Layer 2 — Navigation
+4. Layer 3 — Numbers
+5. Layer 4 — Function
+
+**Related:** See [KEYMAP_GUIDE.md](KEYMAP_GUIDE.md) for feature explanations, or [GAMING_GUIDE.md](GAMING_GUIDE.md) / [DIABLO4_GUIDE.md](DIABLO4_GUIDE.md) for alternative keymaps.
 
 The ErgoDox Infinity has 7 columns per side plus thumb clusters (2x3).
 
