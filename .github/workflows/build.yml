@@ -1,0 +1,37 @@
+name: Build Ergodox Infinity
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout QMK 0.14.0
+        uses: actions/checkout@v4
+        with:
+          repository: qmk/qmk_firmware
+          ref: '0.14.0'
+          submodules: false
+          path: qmk_firmware
+
+      - name: Init required submodules
+        working-directory: qmk_firmware
+        run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf
+
+      - name: Copy keymap
+        run: cp -r keymap qmk_firmware/keyboards/input_club/ergodox_infinity/keymaps/brandon
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Build firmware
+        working-directory: qmk_firmware
+        run: make input_club/ergodox_infinity:brandon
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: ergodox-infinity-brandon
+          path: qmk_firmware/*.bin
