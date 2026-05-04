@@ -35,3 +35,4 @@ jobs:
         with:
           name: ergodox-infinity-brandon
           path: qmk_firmware/*.bin
+
