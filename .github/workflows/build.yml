@@ -21,18 +21,17 @@ jobs:
         run: git submodule update --init lib/chibios lib/chibios-contrib lib/printf
 
       - name: Copy keymap
-        run: cp -r keymap qmk_firmware/keyboards/input_club/ergodox_infinity/keymaps/brandon
+        run: cp -r keymap qmk_firmware/keyboards/ergodox_infinity/keymaps/brandon
 
       - name: Install ARM toolchain
         run: sudo apt-get install -y gcc-arm-none-eabi
 
       - name: Build firmware
         working-directory: qmk_firmware
-        run: make input_club/ergodox_infinity:brandon
+        run: make ergodox_infinity:brandon
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: ergodox-infinity-brandon
           path: qmk_firmware/*.bin
-
