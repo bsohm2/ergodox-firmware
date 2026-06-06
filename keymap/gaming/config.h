@@ -5,6 +5,7 @@
 
 // Gaming-optimized settings
 // Disable tap-hold to reduce input latency
+#undef TAPPING_TERM
 #define TAPPING_TERM 0
 
 // Enable minimal features
