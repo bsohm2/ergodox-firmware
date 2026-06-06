@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Right hand - More abilities and quick items
     KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
     KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
-             KC_L,    KC_SCLN, KC_APOS, KC_SLSH, KC_BSLS, KC_TRNS,
+             KC_L,    KC_SCLN, KC_QUOT, KC_SLSH, KC_BSLS, KC_TRNS,
     KC_TRNS, KC_COMM, KC_DOT,  KC_EQL,  KC_MINS, KC_PLUS, KC_TRNS,
              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_NO,   KC_TRNS,
