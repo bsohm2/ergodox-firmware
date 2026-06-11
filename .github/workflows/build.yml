@@ -2,6 +2,11 @@ name: Build ErgoDox Infinity
 
 on:
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'keymap/**'
+      - '.github/workflows/build.yml'
 
 jobs:
   build:
@@ -39,3 +44,19 @@ jobs:
         with:
           name: ergodox-infinity-brandon
           path: qmk_firmware/*.bin
+
+      - name: Generate keymap diagram
+        continue-on-error: true
+        working-directory: qmk_firmware
+        run: |
+          python3 -m pip install --user keymap-drawer
+          qmk c2json -kb input_club/ergodox_infinity -km brandon -o ../keymap.json
+          keymap parse -q ../keymap.json > ../keymap.yaml
+          keymap draw ../keymap.yaml > ../keymap.svg
+
+      - name: Upload keymap diagram
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: keymap-diagram
+          path: keymap.svg

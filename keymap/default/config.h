@@ -6,3 +6,6 @@
 // instead of staying dead.
 #define SPLIT_WATCHDOG_ENABLE
 #define SPLIT_WATCHDOG_TIMEOUT 3000
+
+// Caps Word: double-tap Shift to type one WORD in caps, auto-disables
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
