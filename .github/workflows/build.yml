@@ -7,10 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        keymap: [default, gaming]
-
     steps:
       - uses: actions/checkout@v4
 
@@ -19,25 +15,27 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential python3 python3-pip libhidapi-dev dfu-util
 
-      - name: Clone QMK at 0.14.0
-        run: git clone --depth 1 --branch 0.14.0 https://github.com/qmk/qmk_firmware.git
+      - name: Clone QMK master (includes PR 25963 kiibohd mcu_reset fix)
+        run: git clone --depth 1 https://github.com/qmk/qmk_firmware.git
 
       - name: Initialize QMK submodules
         working-directory: qmk_firmware
         run: git submodule update --init --recursive
 
       - name: Install Python dependencies
-        run: python3 -m pip install --user -r qmk_firmware/requirements.txt
+        run: |
+          python3 -m pip install --user qmk
+          python3 -m pip install --user -r qmk_firmware/requirements.txt
 
       - name: Copy keymap
-        run: cp -r keymap/${{ matrix.keymap }} qmk_firmware/keyboards/ergodox_infinity/keymaps/${{ matrix.keymap }}
+        run: cp -r keymap/default qmk_firmware/keyboards/input_club/ergodox_infinity/keymaps/brandon
 
       - name: Build firmware
         working-directory: qmk_firmware
-        run: make ergodox_infinity:${{ matrix.keymap }}
+        run: make input_club/ergodox_infinity:brandon
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ergodox-infinity-${{ matrix.keymap }}
+          name: ergodox-infinity-brandon
           path: qmk_firmware/*.bin
