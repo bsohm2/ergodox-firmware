@@ -1,0 +1,138 @@
+LinkedIn Post Generator — Manual Setup Instructions
+===================================================
+
+This document walks through the complete setup if you prefer to do it manually
+rather than running the batch scripts.
+
+Prerequisites
+-------------
+1. Python 3.12 or later installed with "Add Python to PATH" checked
+2. anthropic package: open a command prompt and run:
+     pip install anthropic
+3. A Gmail App Password (NOT your regular Gmail password)
+   - Go to: myaccount.google.com/apppasswords
+   - Select "Mail" and your device, click Generate
+   - Copy the 16-character password (no spaces)
+4. An Anthropic API key from: console.anthropic.com
+
+
+Step 1 — Set System Environment Variables
+-----------------------------------------
+These must be machine-wide (not user-level) so Task Scheduler can read them
+when running the task. Open an ADMINISTRATOR command prompt and run:
+
+    setx ANTHROPIC_API_KEY  "sk-ant-..."          /M
+    setx LI_EMAIL_SENDER    "you@gmail.com"        /M
+    setx LI_EMAIL_PASSWORD  "abcd efgh ijkl mnop"  /M
+    setx LI_EMAIL_RECIPIENT "recipient@email.com"  /M
+
+The /M flag writes to HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment
+(machine-wide), which is visible to all users and service accounts.
+
+IMPORTANT: Restart your PC or sign out and back in before Step 2.
+
+
+Step 2 — Verify Python and the Script
+--------------------------------------
+Open a new command prompt (after restarting) and run:
+
+    python --version
+    python -c "import anthropic; print('OK', anthropic.__version__)"
+    echo %ANTHROPIC_API_KEY%   <- should print your key, not empty
+
+Note the full path to python.exe:
+    where python
+
+And the full path to the script (wherever you cloned the repo), e.g.:
+    C:\Users\Brandon\projects\ergodox-firmware\linkedin_post_generator.py
+
+
+Step 3 — Register the Scheduled Task
+--------------------------------------
+Option A: Automatic (recommended) — run install_task.bat as Administrator.
+           It auto-detects Python, patches the XML, and imports the task.
+
+Option B: Manual
+
+  a) Copy linkedin_task.xml to linkedin_task_configured.xml
+
+  b) Open linkedin_task_configured.xml in a text editor and replace:
+       PYTHON_PATH_PLACEHOLDER   -> C:\Python312\python.exe   (your actual path)
+       SCRIPT_PATH_PLACEHOLDER   -> C:\...\linkedin_post_generator.py
+       WORKING_DIR_PLACEHOLDER   -> C:\...\ergodox-firmware
+
+  c) Open Task Scheduler (taskschd.msc)
+     - Action -> Import Task
+     - Select linkedin_task_configured.xml
+     - When prompted for account, enter your Windows username and password
+     - Choose "Run whether user is logged on or not"
+
+  Or via command line (as Administrator):
+     schtasks /create ^
+       /xml "C:\path\to\linkedin_task_configured.xml" ^
+       /tn "LinkedIn Post Generator" ^
+       /ru "YOURDOMAIN\YourUsername" ^
+       /rp "YourWindowsPassword" ^
+       /f
+
+
+Step 4 — Test the Task
+-----------------------
+Trigger a manual run immediately:
+
+    schtasks /run /tn "LinkedIn Post Generator"
+
+Then check:
+  - Task Scheduler -> LinkedIn Post Generator -> History tab (F5 to refresh)
+  - Your recipient inbox for the draft email
+  - For errors, check the Last Run Result column (0x0 = success)
+
+To run the script directly for quick testing:
+    python C:\path\to\linkedin_post_generator.py
+
+
+Task Schedule Details
+---------------------
+The task is configured to run every Monday at 8:00 AM local time.
+Additional settings:
+  - Runs whether logged in or not (needs stored credentials)
+  - Starts when available (catches missed runs if PC was off Monday morning)
+  - Requires network connection
+  - Maximum run time: 30 minutes
+  - Does not stop on battery power
+
+
+Troubleshooting
+---------------
+PROBLEM: Last Run Result shows 0x1 or non-zero exit code
+  - Check that all four env vars are set at system level (not just user level)
+  - Open a NEW cmd prompt after setting vars and run: echo %ANTHROPIC_API_KEY%
+  - Make sure the Python path in the task is the full absolute path
+
+PROBLEM: Email not received
+  - Verify LI_EMAIL_PASSWORD is a Gmail App Password, not your login password
+  - Check spam folder
+  - Try running the script directly in a cmd window to see error output
+
+PROBLEM: "No text content returned from API"
+  - The Anthropic API may have blocked the response; try again
+  - Check your API key has remaining credits at console.anthropic.com
+
+PROBLEM: Task runs as SYSTEM and can't read env vars
+  - Do NOT use SYSTEM account. The task must run as your user account.
+  - Re-import the task and make sure you supply your username and password
+  - Machine-wide setx /M vars ARE visible when the task runs as your user
+
+PROBLEM: Python not found in task but works in cmd
+  - Task Scheduler has a restricted PATH; always use the full absolute path
+    to python.exe (e.g. C:\Python312\python.exe, not just "python")
+  - install_task.bat handles this automatically via "where python"
+
+
+Files in This Package
+---------------------
+  linkedin_post_generator.py  - Main script (Anthropic API + Gmail SMTP)
+  setup_env.bat               - Sets system env vars (run as Admin first)
+  install_task.bat            - Registers the scheduled task (run as Admin)
+  linkedin_task.xml           - Task Scheduler XML template (do not import directly)
+  task_scheduler_setup.txt    - This file
